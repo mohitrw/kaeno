@@ -1,0 +1,18 @@
+{
+  "name": "Kaeno — Offline WebP Image Engine",
+  "short_name": "Kaeno",
+  "description": "Convert PNG and JPG images to high-efficiency WebP locally on your device with zero internet required.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    {
+      "src": "Assets/LetHimCook.svg",
+      "sizes": "72x72 96x96 128x128 192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

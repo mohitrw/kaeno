@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kaeno — Offline WebP Image Engine</title>
+  <meta name="description" content="Convert PNG and JPG images to WebP in seconds. Smaller file sizes, 100% private, offline-first.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#080808">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3.5">
+</head>
+<body>
+  <!-- Ambient Background Blur Layers -->
+  <div class="bg-layer bg-layer-top-right" aria-hidden="true">
+    <img src="Assets/BgLayerBlur.png" alt="" class="blur-img" width="1200" height="886" decoding="async" fetchpriority="low">
+  </div>
+  <div class="bg-layer bg-layer-bottom-left" aria-hidden="true">
+    <img src="Assets/BgLayerBlur.png" alt="" class="blur-img" width="1200" height="886" decoding="async" fetchpriority="low">
+  </div>
+
+  <!-- Header / Navigation (Full Width, Attached to Top) -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo" id="logoBtn" role="button" tabindex="0" title="Kaeno Home">
+        <span class="logo-text">Kae<span class="red-accent">n</span>o</span>
+        <span class="logo-tagline">Make it Yours.</span>
+      </div>
+      <div class="nav-action">
+        <button class="nav-action-btn btn-clear-workspace hidden" id="clearWorkspaceBtn" type="button" title="Clear all temporary files from IndexedDB">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>Clear Workspace</span>
+        </button>
+        <button class="nav-action-btn btn-install-pwa hidden" id="pwaInstallBtn" type="button" title="Install Kaeno PWA">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Install App</span>
+        </button>
+        <a href="#make-it-yours" class="nav-link" id="makeItYoursBtn">Make it Yours</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- View 1: Main Content Grid / Home View -->
+    <main class="main-content view-pane" id="homeView">
+      <!-- Left Column: Hero & Comparison -->
+      <section class="left-section">
+        <!-- Hero Header Row -->
+        <div class="hero-header-row">
+          <h1 class="hero-title">
+            Lighter <br class="desktop-only">Format.
+          </h1>
+          <p class="hero-desc">
+            Convert PNG and JPG images to WebP in seconds. Smaller file sizes, the same visual quality.
+          </p>
+        </div>
+
+        <!-- Badges / Tags -->
+        <div class="badges-row">
+          <div class="badge badge-privacy">
+            <span>Your images. Your privacy.</span>
+          </div>
+          <div class="badge badge-format">
+            <span>Webp Format</span>
+          </div>
+        </div>
+
+        <!-- Image Comparison Section -->
+        <div class="comparison-row">
+          <!-- Card 1: Original PNG -->
+          <div class="comparison-card card-png">
+            <div class="image-wrapper">
+              <img src="Assets/HomeImg.png" alt="Original landscape photo" class="comp-img" width="1312" height="1312" decoding="async" fetchpriority="high">
+            </div>
+            <div class="card-footer">
+              <span class="file-tag">Img1.png</span>
+              <span class="file-size size-original">30mb</span>
+              <div class="mobile-flow-arrow" aria-hidden="true">
+                <svg width="64" height="36" viewBox="0 0 64 36" fill="none">
+                  <path d="M0 6 H48 V26" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.8" stroke-linecap="round" />
+                  <polyline points="41 19 48 26 55 19" stroke="rgba(255, 255, 255, 0.35)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow Divider -->
+          <div class="comparison-arrow" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </div>
+
+          <!-- Card 2: Converted WebP -->
+          <div class="comparison-card card-webp">
+            <div class="image-wrapper">
+              <div class="savings-tag">93% Smaller</div>
+              <img src="Assets/HomeImg.png" alt="Converted WebP landscape photo" class="comp-img" width="1312" height="1312" decoding="async">
+            </div>
+            <div class="card-footer">
+              <span class="file-tag">Img1.webp</span>
+              <span class="file-size size-converted">200kb</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Upload Dropzone Card -->
+      <section class="right-section">
+        <div class="dropzone-card" id="dropzoneCard">
+          <input type="file" id="fileInput" accept=".png, .jpg, .jpeg, image/png, image/jpeg" multiple style="display: none;" aria-label="Upload images">
+          <!-- Decorative Background Curves -->
+          <svg class="dropzone-curves" viewBox="0 0 400 520" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Subtle White Curve -->
+            <path d="M320 0 C 330 140, 260 260, 0 350" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1.2" fill="none" />
+            <!-- Crimson Accent Curve -->
+            <path d="M0 270 C 130 230, 270 175, 400 160" stroke="rgba(215, 38, 38, 0.45)" stroke-width="1.2" fill="none" />
+          </svg>
+
+          <!-- Center Content -->
+          <div class="dropzone-content">
+            <div class="plus-icon-box" id="plusBtn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </div>
+
+            <div class="dropzone-text-group">
+              <h2 class="dropzone-heading">
+                Drag Your <span class="red-accent">Fi</span>les<br class="desktop-only"> Here
+              </h2>
+              <p class="dropzone-types">PNG · JPG · JPEG</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- View 2: Conversion Workspace (Desktop - 14 Figma Design) -->
+    <section class="conversion-view view-pane hidden" id="conversionView" aria-hidden="true">
+      <!-- Top Section (Sticky on desktop, scrolls on mobile) -->
+      <div class="conversion-top-bar">
+        <div class="conversion-hero">
+          <h1 class="conversion-title">
+            <span class="hero-line hero-line-white">Fast Conversion</span>
+            <span class="hero-line hero-line-muted">Web-Ready</span>
+            <span class="hero-line hero-line-white">Smaller <span class="red-accent">Fi</span>les</span>
+          </h1>
+
+          <div class="badges-row conversion-badges">
+            <div class="badge badge-privacy">
+              <span>Your images. Your privacy.</span>
+            </div>
+            <div class="badge badge-format">
+              <span>Webp Format</span>
+            </div>
+            <!-- Quality Control Selector -->
+            <div class="badge badge-quality" id="qualityControlBadge" title="Adjust WebP conversion quality">
+              <span>Quality: <strong id="qualityDisplay">95%</strong></span>
+              <input type="range" id="qualitySlider" min="60" max="100" value="95" class="quality-range-input" aria-label="WebP Quality">
+            </div>
+          </div>
+        </div>
+
+        <div class="conversion-flow-boxes">
+          <!-- Source Format Box: PNG · JPG · JPEG (Square) -->
+          <div class="flow-card">
+            <svg class="flow-card-curves" viewBox="0 0 106 106" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M85 0 C 95 40, 70 75, 0 95" stroke="rgba(255, 255, 255, 0.24)" stroke-width="1.4" fill="none" />
+              <path d="M0 80 C 35 65, 75 50, 106 45" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" fill="none" />
+            </svg>
+            <span class="flow-card-label">PNG · JPG · JPEG</span>
+          </div>
+
+          <!-- Flow Arrow -->
+          <div class="flow-separator" aria-hidden="true">
+            <svg class="flow-arrow-desktop" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <svg class="flow-arrow-mobile" width="96" height="56" viewBox="0 0 96 56" fill="none" stroke="#757582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 0 8 L 86 8 L 86 48" />
+              <polyline points="79 40 86 48 93 40" />
+            </svg>
+          </div>
+
+          <!-- Target Format Box: WEBP (Square) -->
+          <div class="flow-card">
+            <svg class="flow-card-curves" viewBox="0 0 106 106" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M0 100 C 40 80, 80 50, 106 15" stroke="rgba(255, 255, 255, 0.24)" stroke-width="1.4" fill="none" />
+            </svg>
+            <span class="flow-card-label">WEBP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Grid Area & Dedicated Right Controls -->
+      <div class="conversion-body">
+        <!-- Scrollable Viewport (Internal scroll, boundary clips items at top) -->
+        <div class="images-scroll-viewport" id="imagesScrollViewport" tabindex="0" role="region" aria-label="Images to convert">
+          <div class="images-grid" id="imagesGrid">
+            <!-- Dynamic or default image cards inserted here -->
+          </div>
+        </div>
+
+        <!-- Dedicated Right Control Column -->
+        <aside class="conversion-controls-col" aria-label="Controls and Scrollbar">
+          <!-- Let Him Cook Red Button -->
+          <button class="cook-btn" id="cookBtn" type="button" aria-label="Start conversion" title="Let Him Cook">
+            <img src="Assets/LetHimCook.svg" alt="" class="cook-icon" width="42" height="42">
+          </button>
+
+          <!-- Dedicated Broad Scrollbar -->
+          <div class="custom-scroll-track" id="customScrollTrack" role="scrollbar" aria-controls="imagesScrollViewport" aria-orientation="vertical" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="custom-scroll-thumb" id="customScrollThumb"></div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Cooking Progress Overlay -->
+      <div class="cooking-overlay hidden" id="cookingOverlay" aria-hidden="true">
+        <div class="cooking-modal">
+          <div class="cooking-spinner">
+            <img src="Assets/LetHimCook.svg" alt="" class="cooking-icon-pulse" width="48" height="48">
+          </div>
+          <h3 class="cooking-title">Converting Images...</h3>
+          <p class="cooking-subtitle" id="cookingStatusText">Processing image 1 of 1</p>
+          <div class="cooking-progress-bar">
+            <div class="cooking-progress-fill" id="cookingProgressFill" style="width: 0%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Auxiliary input to add more images directly from conversion view -->
+      <input type="file" id="conversionFileInput" accept=".png, .jpg, .jpeg, image/png, image/jpeg" multiple style="display: none;" aria-label="Add more images">
+    </section>
+
+    <!-- View 3: Converted Files Ready View (Desktop - 16 Figma Design) -->
+    <section class="ready-view view-pane hidden" id="readyView" aria-hidden="true">
+      <!-- Top Section (Sticky on desktop, scrolls on mobile) -->
+      <div class="ready-top-bar">
+        <div class="ready-hero">
+          <h1 class="ready-title">
+            <span class="hero-line hero-line-white">Your <span class="red-accent">Fi</span>les</span>
+            <span class="hero-line hero-line-muted">Are Ready!</span>
+          </h1>
+
+          <div class="badges-row ready-badges">
+            <div class="badge badge-privacy">
+              <span>Your images. Your privacy.</span>
+            </div>
+            <div class="badge badge-format">
+              <span>Webp Format</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ready-flow-boxes">
+          <!-- Source Format Box: PNG · JPG · JPEG (Square) -->
+          <div class="flow-card">
+            <svg class="flow-card-curves" viewBox="0 0 106 106" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M85 0 C 95 40, 70 75, 0 95" stroke="rgba(255, 255, 255, 0.24)" stroke-width="1.4" fill="none" />
+              <path d="M0 80 C 35 65, 75 50, 106 45" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1" fill="none" />
+            </svg>
+            <span class="flow-card-label">PNG · JPG · JPEG</span>
+          </div>
+
+          <!-- Flow Arrow -->
+          <div class="flow-separator" aria-hidden="true">
+            <svg class="flow-arrow-desktop" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+            <svg class="flow-arrow-mobile" width="96" height="56" viewBox="0 0 96 56" fill="none" stroke="#757582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 0 8 L 86 8 L 86 48" />
+              <polyline points="79 40 86 48 93 40" />
+            </svg>
+          </div>
+
+          <!-- Target Format Box: WEBP (Square) -->
+          <div class="flow-card">
+            <svg class="flow-card-curves" viewBox="0 0 106 106" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path d="M0 100 C 40 80, 80 50, 106 15" stroke="rgba(255, 255, 255, 0.24)" stroke-width="1.4" fill="none" />
+            </svg>
+            <span class="flow-card-label">WEBP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Converted Items List & Download All Column -->
+      <div class="ready-body">
+        <!-- Scrollable List Viewport -->
+        <div class="ready-scroll-viewport" id="readyScrollViewport" tabindex="0" role="region" aria-label="Converted files list">
+          <div class="ready-list" id="readyList">
+            <!-- Dynamic converted rows inserted here -->
+          </div>
+        </div>
+
+        <!-- Dedicated Right Controls Column -->
+        <aside class="ready-controls-col" aria-label="Download all and scrollbar">
+          <!-- Download All Button -->
+          <button class="download-all-btn" id="downloadAllBtn" type="button" aria-label="Download all converted files" title="Download all converted files">
+            <span class="download-all-label">Download<br>All</span>
+            <span class="download-all-label-mobile">All</span>
+          </button>
+
+          <!-- Dedicated Broad Scrollbar -->
+          <div class="custom-scroll-track ready-scroll-track" id="readyScrollTrack" role="scrollbar" aria-controls="readyScrollViewport" aria-orientation="vertical" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="custom-scroll-thumb ready-scroll-thumb" id="readyScrollThumb"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js?v=3.5"></script>
+</body>
+</html>
